@@ -1,0 +1,19 @@
+.mixerContainer {
+    display: flex;
+    justify-content: space-evenly;
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+
+    .faderWrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        height: 100%;
+    
+        .fader {
+            height: 75%;
+        }
+    }
+}
