@@ -1,10 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { Typography } from 'antd';
 import { Key as KeyType } from '../../types';
 
 import styles from './Key.module.scss';
-
-const { Paragraph } = Typography;
 
 interface KeyProps {
     keyData: KeyType
@@ -46,7 +43,7 @@ export const Key: React.FC<KeyProps> = ({keyData}) => {
 
     return (
         <div className={className}>
-            <Paragraph>{keyData.key}</Paragraph>
+            <p>{keyData.key}</p>
         </div>
     )
 }
