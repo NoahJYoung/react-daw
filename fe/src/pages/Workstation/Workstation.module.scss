@@ -21,13 +21,14 @@
     .footer {
         display: flex;
         gap: 2rem;
-        min-height: 40vh;
+        min-height: 45vh;
         border: 1px solid green;
     }
 
     .footerViewWrapper {
         display: flex;
         flex-direction: column;
+        justify-content: space-between;
         gap: 1rem;
         align-items: flex-start;
         width: 100%;

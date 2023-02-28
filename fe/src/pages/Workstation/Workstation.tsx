@@ -21,7 +21,7 @@ export const Workstation = () => {
                     <div>TRANSPORT</div>
                 </Header>
                 <Content className={styles.tracks}>
-                    <div style={{height: '50vh'}}>TRACKS</div>
+                    <div style={{height: '45vh'}}>TRACKS</div>
                 </Content>
                 <Footer className={styles.footer}>
                     <MasterFader />

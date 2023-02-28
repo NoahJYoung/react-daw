@@ -3,7 +3,7 @@ import { Slider, Typography } from 'antd';
 
 import styles from './MasterFader.module.scss';
 
-const {Text} = Typography;
+const { Text } = Typography;
 
 export const MasterFader = () => {
     return (
