@@ -3,7 +3,6 @@ import { Keyboard } from './components';
 
 export const InstrumentSection = () => (
     <div>
-        <p>Instrument Section</p>
         <Keyboard />
     </div>
 );
