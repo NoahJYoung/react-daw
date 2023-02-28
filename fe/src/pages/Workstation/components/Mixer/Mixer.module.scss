@@ -1,9 +1,13 @@
 .mixerContainer {
     display: flex;
-    height: 20rem;
-    width: 70%;
+    align-items: flex-end;
+    width: 100%;
+    height: 100%;
+    min-height: 23.35rem;
     justify-content: space-evenly;
-    border: 1px solid black;
+    padding: 0.5rem;
+    background: #ddd;
+    border-radius: 0.25rem;
 
     .faderWrapper {
         display: flex;

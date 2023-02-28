@@ -1,7 +1,11 @@
 .keyboard {
-    padding: 8rem 2rem 0.5rem 2rem;
+    max-height: 100%;
+    padding: 10rem 2rem 0.25rem 2rem;
     background: radial-gradient(#555, #333);
     border-radius: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 
     .keys {
         border-top: 2px solid #222;

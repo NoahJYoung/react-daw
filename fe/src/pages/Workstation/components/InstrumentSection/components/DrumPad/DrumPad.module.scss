@@ -1,0 +1,11 @@
+.drumPad {
+    display: grid;
+    row-gap: 0.25rem;
+    column-gap: 0.25rem;
+    background: radial-gradient(#777, #555);
+    border-radius: 0.75rem;
+    height: 100%;
+    width: 22rem;
+    padding: 1rem;
+    grid-template-columns: 1fr 1fr 1fr;
+}

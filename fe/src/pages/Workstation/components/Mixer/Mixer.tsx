@@ -10,7 +10,7 @@ export const Mixer = () => {
     return (
         <div className={styles.mixerContainer}>
             {mockedTracks.map(track => (
-                <div className={styles.faderWrapper}>
+                <div key={track.number} className={styles.faderWrapper}>
                     <Slider
                         className={styles.fader}
                         value={track.value}

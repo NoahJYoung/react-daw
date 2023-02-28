@@ -1,8 +1,11 @@
 import React from 'react';
-import { Keyboard } from './components';
+import { Keyboard, DrumPad } from './components';
+
+import styles from './InstrumentSection.module.scss';
 
 export const InstrumentSection = () => (
-    <div>
+    <div className={styles.instrumentsContainer}>
         <Keyboard />
+        <DrumPad />
     </div>
 );
