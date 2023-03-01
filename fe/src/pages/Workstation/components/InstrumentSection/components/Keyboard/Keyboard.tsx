@@ -1,13 +1,29 @@
 import React from 'react';
 import { Key } from './components';
 import { keys } from './utils';
+import { Synthesizer } from '../../../../AudioEngine';
+
 
 import styles from './Keyboard.module.scss';
 
-export const Keyboard = () => (
-    <div className={styles.keyboard}>
-        <div className={styles.keys}>
-            {keys.map((key, i) => <Key key={i} keyData={key} />)}
+interface KeyboardProps {
+    synthesizer: Synthesizer
+}
+
+export const Keyboard: React.FC<KeyboardProps> = ({synthesizer}) => {
+    const { triggerAttack, triggerRelease } = synthesizer;
+    return (
+        <div className={styles.keyboard}>
+            <div className={styles.keys}>
+                {keys.map((key, i) => (
+                    <Key
+                        key={i}
+                        keyData={key}
+                        triggerAttack={triggerAttack}
+                        triggerRelease={triggerRelease}
+                    />
+                ))}
+            </div>
         </div>
-    </div>
-)
+    );
+}
