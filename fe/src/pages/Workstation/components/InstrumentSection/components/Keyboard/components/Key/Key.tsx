@@ -5,9 +5,15 @@ import styles from './Key.module.scss';
 
 interface KeyProps {
     keyData: KeyType
+    triggerAttack: (note: string) => void
+    triggerRelease: (note: string) => void
 }
 
-export const Key: React.FC<KeyProps> = ({keyData}) => {
+export const Key: React.FC<KeyProps> = ({
+    keyData,
+    triggerAttack,
+    triggerRelease,
+}) => {
     const [isActive, setIsActive] = useState<boolean>(false);
 
     const { noteName, key, type } = keyData;
@@ -18,18 +24,20 @@ export const Key: React.FC<KeyProps> = ({keyData}) => {
         if (!event.repeat && !isActive) {
             if (event.key === key) {
                 setIsActive(true);
+                triggerAttack(noteName);
             }
         } 
-    }, [isActive, key]);
+    }, [isActive, key, noteName, triggerAttack]);
 
     const handleKeyUp = useCallback((event: KeyboardEvent) => {
             event.preventDefault();
             if (!event.repeat && isActive) {
                 if (event.key === key) {
                     setIsActive(false);
+                    triggerRelease(noteName);
                 }
             } 
-        }, [isActive, key]);
+        }, [isActive, key, noteName, triggerRelease]);
 
         useEffect(() => {
             window.addEventListener('keydown', handleKeyDown);

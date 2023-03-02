@@ -1,11 +1,19 @@
 import React from 'react';
+import { AudioEngine } from '../../AudioEngine';
 import { Keyboard, DrumPad } from './components';
 
 import styles from './InstrumentSection.module.scss';
 
-export const InstrumentSection = () => (
-    <div className={styles.instrumentsContainer}>
-        <Keyboard />
-        <DrumPad />
-    </div>
-);
+interface InstrumentSectionProps {
+    audioEngine: AudioEngine
+}
+
+export const InstrumentSection: React.FC<InstrumentSectionProps> = ({audioEngine}) => {
+    const { synthesizer } = audioEngine
+    return (
+        <div className={styles.instrumentsContainer}>
+            <Keyboard synthesizer={synthesizer} />
+            <DrumPad />
+        </div>
+    );
+}

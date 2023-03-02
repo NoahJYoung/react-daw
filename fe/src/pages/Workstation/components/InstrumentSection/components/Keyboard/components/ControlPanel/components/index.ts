@@ -1,0 +1,1 @@
+export { SynthControl } from './SynthControl';
