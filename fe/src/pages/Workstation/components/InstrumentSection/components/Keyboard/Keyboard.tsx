@@ -1,5 +1,5 @@
 import React from 'react';
-import { Key } from './components';
+import { Key, ControlPanel } from './components';
 import { keys } from './utils';
 import { Synthesizer } from '../../../../AudioEngine';
 
@@ -14,6 +14,7 @@ export const Keyboard: React.FC<KeyboardProps> = ({synthesizer}) => {
     const { triggerAttack, triggerRelease } = synthesizer;
     return (
         <div className={styles.keyboard}>
+            <ControlPanel synth={synthesizer} />
             <div className={styles.keys}>
                 {keys.map((key, i) => (
                     <Key
