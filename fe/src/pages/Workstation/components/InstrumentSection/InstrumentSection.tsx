@@ -9,11 +9,11 @@ interface InstrumentSectionProps {
 }
 
 export const InstrumentSection: React.FC<InstrumentSectionProps> = ({audioEngine}) => {
-    const { synthesizer } = audioEngine
+    const { synthesizer, drumSampler } = audioEngine
     return (
         <div className={styles.instrumentsContainer}>
             <Keyboard synthesizer={synthesizer} />
-            <DrumPad />
+            <DrumPad drumSampler={drumSampler} />
         </div>
     );
 }

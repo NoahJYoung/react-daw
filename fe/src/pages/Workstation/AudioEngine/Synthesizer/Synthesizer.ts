@@ -2,8 +2,11 @@ import {
     PolySynth,
     AMSynth,
     FMSynth,
+    MembraneSynth,
     now,
 } from 'tone';
+
+import { Key, keys } from './keys';
 
 interface SynthControlData {
     label: string
@@ -15,8 +18,10 @@ interface SynthControlData {
 }
 
 export class Synthesizer {
+    keys: Key[]
     aMSynth: PolySynth<AMSynth>
     fMSynth: PolySynth<FMSynth>
+    membraneSynth: PolySynth<MembraneSynth>
     synths : PolySynth[]
     activeSynthIndex: number
     activeSynth: PolySynth
@@ -29,9 +34,11 @@ export class Synthesizer {
 
 
     constructor() {
-        this.aMSynth = new PolySynth(AMSynth)
+        this.keys = keys;
+        this.aMSynth = new PolySynth(AMSynth);
         this.fMSynth = new PolySynth(FMSynth);
-        this.synths = [this.aMSynth, this.fMSynth];
+        this.membraneSynth = new PolySynth(MembraneSynth);
+        this.synths = [this.aMSynth, this.fMSynth, this.membraneSynth];
         this.activeSynthIndex = 1;
         this.activeSynth = this.synths[this.activeSynthIndex];
         this.attack = 0.01;
@@ -48,6 +55,14 @@ export class Synthesizer {
                 max: 2,
                 step: 1,
                 set: this.setOctave
+            },
+            {
+                label: "Synth Mode",
+                value: this.activeSynthIndex,
+                min: 0,
+                max: this.synths.length - 1,
+                step: 1,
+                set: this.setSynthMode
             },
             {
                 label: "Attack",
@@ -129,9 +144,9 @@ export class Synthesizer {
         this.activeSynth.triggerRelease(note, now());
     }
 
-    changeSynthMode = (value: string) => {
-        this.activeSynth.disconnect();
-        this.activeSynthIndex = Number(value);
+    setSynthMode = (value: number) => {
+        // this.activeSynth.disconnect();
+        this.activeSynthIndex = value;
         this.activeSynth = this.synths[this.activeSynthIndex].toDestination();
         this.applySynthSettings();
       }
