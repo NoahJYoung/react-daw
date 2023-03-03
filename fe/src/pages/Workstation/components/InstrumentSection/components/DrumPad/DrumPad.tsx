@@ -10,7 +10,7 @@ interface DrumPadProps {
 }
 
 export const DrumPad: React.FC<DrumPadProps> = ({ drumSampler }) => {
-    const { pads, triggerAttack, triggerRelease } = drumSampler;
+    const { pads, triggerAttack } = drumSampler;
     return (
         <div className={styles.drumPad}>
             { pads.map((pad, i) => (
@@ -19,7 +19,6 @@ export const DrumPad: React.FC<DrumPadProps> = ({ drumSampler }) => {
                     index={pad.index}
                     padKey={pad.padKey}
                     triggerAttack={triggerAttack}
-                    triggerRelease={triggerRelease}
                 />
             )) }
         </div>
