@@ -1,1 +1,0 @@
-export { pads } from './pads';

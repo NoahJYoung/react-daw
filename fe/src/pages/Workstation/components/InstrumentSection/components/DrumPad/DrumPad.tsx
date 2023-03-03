@@ -1,13 +1,27 @@
 import React from 'react';
-import { pads } from './utils';
 import { Pad } from './components';
+import { DrumSampler } from '../../../../AudioEngine/DrumSampler';
+
 
 import styles from './DrumPad.module.scss';
 
-export const DrumPad = () => {
+interface DrumPadProps {
+    drumSampler: DrumSampler
+}
+
+export const DrumPad: React.FC<DrumPadProps> = ({ drumSampler }) => {
+    const { pads, triggerAttack, triggerRelease } = drumSampler;
     return (
         <div className={styles.drumPad}>
-            { pads.map((pad, i) => <Pad key={i} padKey={pad.padKey} />) }
+            { pads.map((pad, i) => (
+                <Pad
+                    key={i}
+                    index={pad.index}
+                    padKey={pad.padKey}
+                    triggerAttack={triggerAttack}
+                    triggerRelease={triggerRelease}
+                />
+            )) }
         </div>
     )
 }

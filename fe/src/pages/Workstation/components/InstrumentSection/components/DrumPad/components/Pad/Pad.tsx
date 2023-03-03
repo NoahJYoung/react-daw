@@ -4,31 +4,33 @@ import styles from './Pad.module.scss';
 
 interface PadProps {
     padKey: string
+    index: number
+    triggerAttack: (index: number) => void
+    triggerRelease: (index: number) => void
 }
 
-export const Pad: React.FC<PadProps> = ({padKey}) => {
+export const Pad: React.FC<PadProps> = ({ padKey, index, triggerAttack, triggerRelease }) => {
     const [isActive, setIsActive] = useState<boolean>(false);
-
-    const className = `${styles.pad} ${isActive ? styles.active : ''}`;
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
         event.preventDefault();
         if (!event.repeat && !isActive) {
             if (event.key === padKey) {
                 setIsActive(true);
-                console.log(padKey, 'down')
+                triggerAttack(index);
             }
         } 
-    }, [isActive, padKey]);
+    }, [index, isActive, padKey, triggerAttack]);
 
     const handleKeyUp = useCallback((event: KeyboardEvent) => {
             event.preventDefault();
             if (!event.repeat && isActive) {
                 if (event.key === padKey) {
                     setIsActive(false);
+                    //triggerRelease(index);
                 }
             } 
-        }, [isActive, padKey]);
+        }, [index, isActive, padKey, triggerRelease]);
 
         useEffect(() => {
             window.addEventListener('keydown', handleKeyDown);
@@ -39,6 +41,9 @@ export const Pad: React.FC<PadProps> = ({padKey}) => {
                 window.removeEventListener('keyup', handleKeyUp)
             }
         }, [handleKeyDown, handleKeyUp])
+
+        const className = `${styles.pad} ${isActive ? styles.active : ''}`;
+
 
     return (
         <div className={className}>
