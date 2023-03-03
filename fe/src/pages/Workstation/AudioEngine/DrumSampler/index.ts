@@ -1,0 +1,1 @@
+export { DrumSampler } from './DrumSampler';

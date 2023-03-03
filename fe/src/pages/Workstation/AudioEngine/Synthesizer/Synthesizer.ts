@@ -6,6 +6,8 @@ import {
     now,
 } from 'tone';
 
+import { Key, keys } from './keys';
+
 interface SynthControlData {
     label: string
     value: number
@@ -16,6 +18,7 @@ interface SynthControlData {
 }
 
 export class Synthesizer {
+    keys: Key[]
     aMSynth: PolySynth<AMSynth>
     fMSynth: PolySynth<FMSynth>
     membraneSynth: PolySynth<MembraneSynth>
@@ -31,7 +34,8 @@ export class Synthesizer {
 
 
     constructor() {
-        this.aMSynth = new PolySynth(AMSynth)
+        this.keys = keys;
+        this.aMSynth = new PolySynth(AMSynth);
         this.fMSynth = new PolySynth(FMSynth);
         this.membraneSynth = new PolySynth(MembraneSynth);
         this.synths = [this.aMSynth, this.fMSynth, this.membraneSynth];
