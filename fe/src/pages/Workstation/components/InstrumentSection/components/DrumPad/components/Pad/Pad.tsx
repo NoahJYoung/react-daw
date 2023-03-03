@@ -6,10 +6,9 @@ interface PadProps {
     padKey: string
     index: number
     triggerAttack: (index: number) => void
-    triggerRelease: (index: number) => void
 }
 
-export const Pad: React.FC<PadProps> = ({ padKey, index, triggerAttack, triggerRelease }) => {
+export const Pad: React.FC<PadProps> = ({ padKey, index, triggerAttack,  }) => {
     const [isActive, setIsActive] = useState<boolean>(false);
 
     const handleKeyDown = useCallback((event: KeyboardEvent) => {
@@ -27,10 +26,9 @@ export const Pad: React.FC<PadProps> = ({ padKey, index, triggerAttack, triggerR
             if (!event.repeat && isActive) {
                 if (event.key === padKey) {
                     setIsActive(false);
-                    //triggerRelease(index);
                 }
             } 
-        }, [index, isActive, padKey, triggerRelease]);
+        }, [isActive, padKey]);
 
         useEffect(() => {
             window.addEventListener('keydown', handleKeyDown);

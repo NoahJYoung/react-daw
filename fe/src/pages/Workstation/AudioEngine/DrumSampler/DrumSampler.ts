@@ -24,8 +24,4 @@ export class DrumSampler {
         activePad.start(now());
     };
 
-    triggerRelease = (index: number) => {
-        this.pads[index].player.stop(now());
-    }
-
 }
