@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Typography } from 'antd';
-import { Knob } from 'primereact/knob';
+import { Knob, KnobChangeEvent } from 'primereact/knob';
 import styles from './SynthControl.module.scss';
 
 const { Text } = Typography
@@ -29,6 +29,7 @@ export const SynthControl: React.FC<SynthControlProps> = ({
             const parsedValue = Number(value.toFixed(2))
             value < 0 ? setKnobColor("#db4646") : setKnobColor("#58ace8")
             setKnobValue(parsedValue);
+            set(value);
         }
         return (
             <div className={styles.controlContainer}>
@@ -36,8 +37,8 @@ export const SynthControl: React.FC<SynthControlProps> = ({
                 <Knob
                     valueColor={knobColor}
                     value={knobValue}
-                    onChange={(e) => handleSliderChange(e.value)}
-                    size={60}
+                    onChange={(e: KnobChangeEvent) => handleSliderChange(e.value)}
+                    size={50}
                     step={step}
                     min={min}
                     max={max}
