@@ -2,7 +2,6 @@ import React from 'react';
 import { Pad } from './components';
 import { DrumSampler } from '../../../../AudioEngine/DrumSampler/DrumSampler';
 
-
 import styles from './DrumPad.module.scss';
 
 interface DrumPadProps {

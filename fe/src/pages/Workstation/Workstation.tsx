@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Layout, Space, Radio, RadioChangeEvent } from 'antd';
 import { FooterDisplay } from './types';
-import { InstrumentSection, MasterFader, Mixer } from './components';
+import { InstrumentSection, MasterFader, Mixer, TrackSection } from './components';
 import { AudioEngine } from './AudioEngine';
 
 import styles from './Workstation.module.scss';
@@ -20,11 +20,11 @@ export const Workstation = () => {
     return (
         <Space direction="vertical" className={styles.workstation} size="large">
             <Layout className={styles.layout}>
-                <Header className={styles.transport}>
+                <Content className={styles.content}>
+                    <TrackSection />
+                </Content>
+                <Content className={styles.transport}>
                     <div>TRANSPORT</div>
-                </Header>
-                <Content className={styles.tracks}>
-                    <div style={{height: '45vh'}}>TRACKS</div>
                 </Content>
                 <Footer className={styles.footer}>
                     <MasterFader />

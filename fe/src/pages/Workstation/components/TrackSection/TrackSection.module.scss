@@ -1,0 +1,35 @@
+.wrapper {
+    width: 10000px;
+    display: flex;
+    flex-shrink: 0;
+}
+
+.controls {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    border: 2px solid blue;
+    background: white;
+    min-width: 18rem;
+    min-height: 8rem;
+}
+
+.tracksContainer {
+    max-height: 45vh;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    overflow-y: scroll;
+}
+
+.canvasSection {
+    overflow-y: scroll;
+}
+
+.waveform {
+    width: 10000px;
+}
