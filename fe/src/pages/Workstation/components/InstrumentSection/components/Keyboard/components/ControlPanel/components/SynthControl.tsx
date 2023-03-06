@@ -27,8 +27,7 @@ export const SynthControl: React.FC<SynthControlProps> = ({
 
         const handleSliderChange = (value: number) => {
             const parsedValue = Number(value.toFixed(2))
-            if (value < 0) setKnobColor("#db4646")
-            else setKnobColor("#58ace8")
+            value < 0 ? setKnobColor("#db4646") : setKnobColor("#58ace8")
             setSliderValue(parsedValue);
         }
         return (
