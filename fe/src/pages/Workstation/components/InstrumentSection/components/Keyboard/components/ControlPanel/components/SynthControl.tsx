@@ -22,20 +22,20 @@ export const SynthControl: React.FC<SynthControlProps> = ({
     max,
     set,
 }) => {
-        const [sliderValue, setSliderValue] = useState<number>(value);
+        const [knobValue, setKnobValue] = useState<number>(value);
         const [knobColor, setKnobColor] = useState("#58ace8")
 
         const handleSliderChange = (value: number) => {
             const parsedValue = Number(value.toFixed(2))
             value < 0 ? setKnobColor("#db4646") : setKnobColor("#58ace8")
-            setSliderValue(parsedValue);
+            setKnobValue(parsedValue);
         }
         return (
             <div className={styles.controlContainer}>
                 <Text className={styles.knobLabel}>{ label }</Text>
                 <Knob
                     valueColor={knobColor}
-                    value={sliderValue}
+                    value={knobValue}
                     onChange={(e) => handleSliderChange(e.value)}
                     size={60}
                     step={step}
