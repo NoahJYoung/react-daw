@@ -1,24 +1,16 @@
 import React from 'react';
-import { Slider, Typography } from 'antd';
-import { mockedTracks } from './mockedTracks';
 import styles from './Mixer.module.scss';
+import { AudioEngine } from '../../AudioEngine';
+import { Track } from './components';
+interface MixerProps {
+    audioEngine: AudioEngine
+}
 
-const { Text } = Typography;
-
-
-export const Mixer = () => {
+export const Mixer: React.FC<MixerProps> = ({ audioEngine }) => {
+    const { mixer } = audioEngine;
     return (
         <div className={styles.mixerContainer}>
-            {mockedTracks.map(track => (
-                <div key={track.number} className={styles.faderWrapper}>
-                    <Slider
-                        className={styles.fader}
-                        value={track.value}
-                        vertical
-                    />
-                    <Text>{track.name || track.number}</Text>
-                </div>
-            ))}
+            {mixer.tracks.map(track => <Track key={track.number} track={track} />)}
         </div>
     )
 }

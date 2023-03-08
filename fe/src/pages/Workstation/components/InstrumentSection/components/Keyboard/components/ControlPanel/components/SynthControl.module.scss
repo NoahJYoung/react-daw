@@ -1,5 +1,12 @@
 .controlContainer {
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .knobLabel {
+        margin: 0;
+    }
 
     span {
         margin-left: 0.5rem;
