@@ -1,47 +1,36 @@
 import React, { useState } from 'react';
 import { Typography } from 'antd';
 import { Knob, KnobChangeEvent } from 'primereact/knob';
+import { SynthControlData } from '../../../../../../../AudioEngine/Synthesizer/Synthesizer';
 import styles from './SynthControl.module.scss';
 
 const { Text } = Typography
 
 interface SynthControlProps {
-    label: string
-    value: number
-    step: number
-    min: number
-    max: number
-    set: (value: number) => void
+    control: SynthControlData
 }
 
 export const SynthControl: React.FC<SynthControlProps> = ({
-    label,
-    value,
-    step,
-    min,
-    max,
-    set,
+control
 }) => {
-        const [knobValue, setKnobValue] = useState<number>(value);
-        const [knobColor, setKnobColor] = useState("#58ace8")
+        const [knobValue, setKnobValue] = useState<number>(control.value);
 
         const handleSliderChange = (value: number) => {
             const parsedValue = Number(value.toFixed(2))
-            value < 0 ? setKnobColor("#db4646") : setKnobColor("#58ace8")
             setKnobValue(parsedValue);
-            set(value);
+            control.set(value);
         }
         return (
             <div className={styles.controlContainer}>
-                <Text className={styles.knobLabel}>{ label }</Text>
+                <Text className={styles.knobLabel}>{ control.label }</Text>
                 <Knob
-                    valueColor={knobColor}
+                    valueColor="grey"
                     value={knobValue}
                     onChange={(e: KnobChangeEvent) => handleSliderChange(e.value)}
                     size={50}
-                    step={step}
-                    min={min}
-                    max={max}
+                    step={control.step}
+                    min={control.min}
+                    max={control.max}
                 />
             </div>
         );

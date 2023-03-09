@@ -11,17 +11,7 @@ interface ControlPanelProps {
 export const ControlPanel: React.FC<ControlPanelProps> = ({ synth }) => {
     return (
         <div className={styles.controlPanelContainer}>
-            {synth.SynthControls.map((control) => (
-                <SynthControl
-                    key={control.label}
-                    label={control.label}
-                    value={control.value}
-                    step={control.step}
-                    min={control.min}
-                    max={control.max}
-                    set={control.set}
-                />
-            ))}
+            {synth.SynthControls.map((control, i) => <SynthControl key={i} control={control} />)}
         </div>
     )
 }

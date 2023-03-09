@@ -8,16 +8,4 @@
     padding: 0.5rem;
     background: #ddd;
     border-radius: 0.25rem;
-
-    .faderWrapper {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: flex-end;
-        height: 100%;
-    
-        .fader {
-            height: 60%;
-        }
-    }
 }

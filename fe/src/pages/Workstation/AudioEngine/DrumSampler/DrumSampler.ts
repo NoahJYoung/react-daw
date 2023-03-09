@@ -1,4 +1,4 @@
-import { Player, now } from 'tone';
+import { Player, Channel, now } from 'tone';
 import { pads } from './pads';
 
 
@@ -10,12 +10,14 @@ interface Pad {
 
 export class DrumSampler {
     pads: Pad[]
+    out: Channel
 
     constructor() {
+        this.out = new Channel();
         this.pads = pads.map((pad, i) => ({
             index: i,
             padKey: pad.padKey,
-            player: new Player(pad.value).toDestination()
+            player: new Player(pad.value).connect(this.out)
         }))
     }
 

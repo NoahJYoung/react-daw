@@ -1,10 +1,10 @@
-interface Track {
+export interface TrackData {
     number: number
     value: number
     name?: string
 }
 
-export const mockedTracks: Track[] = [
+export const mockedTracks: TrackData[] = [
     {
         number: 1,
         value: 75,

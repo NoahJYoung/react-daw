@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { Layout, Space, Radio, RadioChangeEvent } from 'antd';
 import { FooterDisplay } from './types';
-import { InstrumentSection, MasterFader, Mixer } from './components';
+import { InstrumentSection, MasterFader, Mixer, TrackSection, Transport } from './components';
 import { AudioEngine } from './AudioEngine';
 
 import styles from './Workstation.module.scss';
 
-const {Header, Content, Footer} = Layout;
-const {Group, Button} = Radio
+const { Content, Footer } = Layout;
+const { Group, Button } = Radio
+
+const audioEngine = new AudioEngine();
 
 export const Workstation = () => {
     const [footerDisplay, setFooterDisplay] = useState<FooterDisplay>(FooterDisplay.INSTRUMENTS);
-    const audioEngine = new AudioEngine();
 
     const handleChangeFooterDisplay = (e: RadioChangeEvent) => {
         setFooterDisplay(e.target.value);
@@ -20,12 +21,14 @@ export const Workstation = () => {
     return (
         <Space direction="vertical" className={styles.workstation} size="large">
             <Layout className={styles.layout}>
-                <Header className={styles.transport}>
-                    <div>TRANSPORT</div>
-                </Header>
-                <Content className={styles.tracks}>
-                    <div style={{height: '45vh'}}>TRACKS</div>
+                <Content className={styles.content}>
+                    <TrackSection />
                 </Content>
+
+                <Content className={styles.transport}>
+                    <Transport audioEngine={audioEngine} />
+                </Content>
+
                 <Footer className={styles.footer}>
                     <MasterFader />
                     <div className={styles.footerViewWrapper}>
@@ -33,7 +36,9 @@ export const Workstation = () => {
                             <Button value={FooterDisplay.INSTRUMENTS}>Instruments</Button>
                             <Button value={FooterDisplay.MIXER}>Mixer</Button>
                         </Group>
-                        { footerDisplay === FooterDisplay.INSTRUMENTS ? <InstrumentSection audioEngine={audioEngine} /> : <Mixer /> }
+                        { footerDisplay === FooterDisplay.INSTRUMENTS ?
+                            <InstrumentSection audioEngine={audioEngine} /> :
+                            <Mixer audioEngine={audioEngine} /> }
                     </div>
                 </Footer>
             </Layout>
