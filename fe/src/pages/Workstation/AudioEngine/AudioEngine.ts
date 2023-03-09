@@ -19,8 +19,14 @@ export class AudioEngine {
         this.synthesizer = new Synthesizer();
         this.drumSampler = new DrumSampler();
         this.synthesizer.out.connect(this.mixer.track1.in);
-        this.mixer.track1.in.connect(this.mixer.track1.out)
-        this.mixer.track1.out.toDestination();
-        //this.mixer.out.toDestination();
+        this.synthesizer.out.connect(this.mixer.track2.in);
+        this.synthesizer.out.connect(this.mixer.track3.in);
+        this.synthesizer.out.connect(this.mixer.track4.in);
+        this.drumSampler.out.connect(this.mixer.track5.in);
+        this.drumSampler.out.connect(this.mixer.track6.in);
+        this.drumSampler.out.connect(this.mixer.track7.in);
+        this.drumSampler.out.connect(this.mixer.track8.in);
+        this.mixer.setOutputs();
+        this.mixer.out.toDestination()
     }
 }

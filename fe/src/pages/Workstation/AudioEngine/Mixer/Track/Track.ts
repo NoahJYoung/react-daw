@@ -1,4 +1,4 @@
-import { Channel, Recorder, Player } from 'tone';
+import { Channel, Recorder, Player, Oscillator } from 'tone';
 
 export class Track {
     name: string | null
@@ -11,6 +11,7 @@ export class Track {
     player: Player
     volume: number
     pan: number
+    osc: Oscillator
 
     constructor(number: number) {
         this.name = null;
@@ -24,25 +25,48 @@ export class Track {
         this.recorder = new Recorder();
         this.player.connect(this.out);
         this.pan = 0;
+        this.osc = new Oscillator(1, 'sine').connect(this.recorder);
+        this.init();
+    }
+
+    init = () => {
+        this.setRoutes();
+        this.osc.set({ volume: -90 })
+    }
+
+    setRoutes = () => {
+        this.in.connect(this.recorder);
+        this.in.connect(this.out);
     }
 
     record = async () => {
         this.recorder.start();
+        this.osc.start()
     };
 
     stop = async () => {
-        const audio = await this.recorder.stop();
-        this.audio = audio;
-        const audioUrl = URL.createObjectURL(this.audio);
-        this.setPlayerAudio(audioUrl);
+        if (this.recorder.state === 'started') {
+            this.osc.stop();
+            const audio = await this.recorder.stop();
+            this.audio = audio;
+            const audioUrl = URL.createObjectURL(this.audio);
+            this.setPlayerAudio(audioUrl);
+        }
+        if (this.player.state === 'started') {
+            this.player.stop();
+        }
     }
 
     play = () => {
-        this.player.start();    
+        if (this.player.loaded) {
+            this.player.start();
+        } else {
+            console.log('no audio');
+        }
     }
 
     setPlayerAudio = (url: string) => {
-        this.player.set({ url })
+        this.player.load(url);
     }
 
     toggleActive = () => {
@@ -60,6 +84,7 @@ export class Track {
     }
 
     setVolume = (value: number) => {
-        this.out.set({ volume: value })
+        this.volume = value
+        this.out.set({ volume: this.volume })
     }
 }

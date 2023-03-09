@@ -54,7 +54,71 @@ export class Synthesizer {
         this.release = 0.5;
         this.sustain = 0.5;
         this.octave = 0;
+        this.SynthControls = [];
         this.applySynthSettings();
+    }
+
+    applySynthSettings = () => {
+        this.activeSynth.set({
+            envelope: {
+                attack: this.attack,
+                decay: this.decay,
+                release: this.release,
+                sustain: this.sustain
+            },
+            detune: this.octave * 1200,
+            volume: this.volume,
+        })
+        this.activeSynth.connect(this.out);
+        this.createSynthControls();
+    };
+
+    setVolume = (value: number) => {
+        this.volume = value - 100;
+        this.applySynthSettings();
+    }
+
+    setAttack = (value: number) => {
+        this.attack = value;
+        this.applySynthSettings();
+    }
+
+    setDecay = (value: number) => {
+        this.decay = value;
+        this.applySynthSettings();
+    }
+
+    setRelease = (value: number) => {
+        this.release = value;
+        this.applySynthSettings();
+    }
+
+    setSustain = (value: number) => {
+        this.sustain = value;
+        this.applySynthSettings();
+    }
+
+    setOctave = (value: number) => {
+        this.octave = value;
+        this.applySynthSettings();
+    }
+
+    triggerAttack = (note: string) => {
+        this.activeSynth.triggerAttack(note, now());
+    }
+
+    triggerRelease = (note: string) => {
+        this.activeSynth.triggerRelease(note, now());
+    }
+
+    setSynthMode = (value: number) => {
+        this.activeSynth.disconnect();
+        this.activeSynthIndex = value;
+        this.activeSynth = this.synths[this.activeSynthIndex];
+        this.applySynthSettings();
+      }
+    
+    createSynthControls = () => {
         this.SynthControls = [
             {
                 label: "Volume",
@@ -114,64 +178,4 @@ export class Synthesizer {
             },
         ]
     }
-
-    applySynthSettings = () => {
-        this.activeSynth.set({
-            envelope: {
-                attack: this.attack,
-                decay: this.decay,
-                release: this.release,
-                sustain: this.sustain
-            },
-            detune: this.octave * 1200,
-            volume: this.volume,
-        })
-        this.activeSynth.connect(this.out);
-    };
-
-    setVolume = (value: number) => {
-        this.volume = value - 100;
-        this.applySynthSettings();
-    }
-
-    setAttack = (value: number) => {
-        this.attack = value;
-        this.applySynthSettings();
-    }
-
-    setDecay = (value: number) => {
-        this.decay = value;
-        this.applySynthSettings();
-    }
-
-    setRelease = (value: number) => {
-        this.release = value;
-        this.applySynthSettings();
-    }
-
-    setSustain = (value: number) => {
-        this.sustain = value;
-        this.applySynthSettings();
-    }
-
-    setOctave = (value: number) => {
-        this.octave = value;
-        this.applySynthSettings();
-    }
-
-    triggerAttack = (note: string) => {
-        this.activeSynth.triggerAttack(note, now());
-    }
-
-    triggerRelease = (note: string) => {
-        this.activeSynth.triggerRelease(note, now());
-    }
-
-    setSynthMode = (value: number) => {
-        this.activeSynth.disconnect();
-        this.activeSynthIndex = value;
-        this.activeSynth = this.synths[this.activeSynthIndex];
-        this.applySynthSettings();
-      }
-
 }

@@ -10,7 +10,12 @@ export const Mixer: React.FC<MixerProps> = ({ audioEngine }) => {
     const { mixer } = audioEngine;
     return (
         <div className={styles.mixerContainer}>
-            {mixer.tracks.map(track => <Track key={track.number} track={track} />)}
+            {mixer.tracks.map((track) => (
+                <Track
+                    key={track.number}
+                    track={track}
+                />
+            ))}
         </div>
     )
 }

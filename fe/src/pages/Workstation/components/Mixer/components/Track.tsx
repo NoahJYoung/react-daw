@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Button, Slider, Typography } from 'antd';
 import { Track as TrackData } from '../../../AudioEngine/Mixer/Track';
 
@@ -15,9 +15,10 @@ export const Track: React.FC<TrackProps> = ({ track }) => {
     const [active, setActive] = useState<boolean>(track.active);
 
     const handleChangeVolume = useCallback((value: number) => {
-        setVolume(value);
         track.setVolume(volume);
-    }, [track, volume]);
+        setVolume(value);
+        console.log(track.volume, volume)
+    }, [volume, track]);
 
     const handleToggleActive = useCallback(() => {
         setActive(!active);

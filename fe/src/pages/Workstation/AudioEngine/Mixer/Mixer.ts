@@ -4,6 +4,7 @@ import { Track } from './Track';
 export class Mixer {
     in: Channel
     out: Channel
+    state: 'playing' | 'recording' | 'stopped'
     track1: Track
     track2: Track
     track3: Track
@@ -17,6 +18,7 @@ export class Mixer {
     constructor() {
         this.in = new Channel();
         this.out = new Channel();
+        this.state = 'stopped';
         this.track1 = new Track(1);
         this.track2 = new Track(2);
         this.track3 = new Track(3);
@@ -45,24 +47,27 @@ export class Mixer {
     }
 
     record = () => {
+        this.state = 'recording';
         this.tracks.forEach(track => {
             if (track.active) {
                 track.record();
+            } else if (track.audio) {
+                track.play();
             }
         })
     }
 
     stop = () => {
+        this.state = 'stopped';
         this.tracks.forEach(track => {
-            if (track.active) {
-                track.stop();
-            }
+            track.stop();
         })
     }
 
     play = () => {
+        this.state = 'playing';
         this.tracks.forEach(track => {
-            if (track.active) {
+            if (track.player.loaded) {
                 track.play();
             }
         })

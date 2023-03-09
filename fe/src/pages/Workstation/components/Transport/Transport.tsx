@@ -1,36 +1,53 @@
 import React, { useState } from 'react';
-import { Button } from 'antd';
+import { Radio, RadioChangeEvent } from 'antd';
 import { AudioEngine } from '../../AudioEngine';
+import { ChromeFilled, PlayCircleFilled } from '@ant-design/icons';
+
+const { Group, Button } = Radio
 
 interface TransportProps {
     audioEngine: AudioEngine
 }
 
 export const Transport: React.FC<TransportProps> = ({ audioEngine }) => {
-    const [recording, setRecording] = useState(false);
+    const [transportState, setTransportState] = useState<string>(audioEngine.mixer.state)
 
-    const handleRecord = () => {
-        //audioEngine.record();
-        //setRecording(true);
-    };
-
-    const handleStopRecording = () => {
-        //audioEngine.stop();
-        //setRecording(false);
+    const handleTransportStateChange = (event: RadioChangeEvent) => {
+        switch (event.target.value) {
+            case ('playing'):
+                audioEngine.mixer.play()
+                break;
+            case ('recording'):
+                audioEngine.mixer.record()
+                break;
+            default:
+                audioEngine.mixer.stop()
+                break;
+        };
+        setTransportState(event.target.value);
     }
 
-    const handlePlayRecording = () => {
-        //if (audioEngine.player) {
-        //    audioEngine.player.start()
-        //}
-    }
     return (
         <div style={{
             display: 'flex',
         }}>
-            <Button style={recording ? {background: 'red' } : {}} onClick={handleRecord}>Record</Button>
-            <Button onClick={handleStopRecording}>Stop</Button>
-            <Button onClick={handlePlayRecording}>play</Button>
+            <Group value={transportState} onChange={handleTransportStateChange}>
+                <Button
+                    style={ transportState === 'recording' ? { background: 'red' } : {} }
+                    value="recording"
+                >
+                    Record
+                </Button>
+                <Button
+                    style={ transportState === 'playing' ? { background: 'light-green' } : {} }
+                    value="playing"
+                >
+                    Play
+                </Button>
+                <Button value="stopped">
+                    Stop
+                </Button>
+            </Group>
         </div>
     )
 }
