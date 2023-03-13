@@ -22,11 +22,9 @@ export class AudioEngine {
         this.synthesizer.out.connect(this.mixer.track2.in);
         this.synthesizer.out.connect(this.mixer.track3.in);
         this.synthesizer.out.connect(this.mixer.track4.in);
-        this.drumSampler.out.connect(this.mixer.track5.in);
+        this.synthesizer.out.connect(this.mixer.track5.in);
         this.drumSampler.out.connect(this.mixer.track6.in);
         this.drumSampler.out.connect(this.mixer.track7.in);
         this.drumSampler.out.connect(this.mixer.track8.in);
-        this.mixer.setOutputs();
-        this.mixer.out.toDestination()
     }
 }
