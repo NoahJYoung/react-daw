@@ -1,0 +1,25 @@
+.faderWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;
+    gap: 1rem;
+    padding: 1rem;
+    border: 1px solid #333;
+    border-radius: 0.25rem;
+
+    .fader {
+        height: 60%;
+        display: flex;
+        justify-content: center;
+
+        ::after {
+            display: none;
+        }
+    }
+
+    .trackName {
+        color: #ddd;
+    }
+}

@@ -42,7 +42,7 @@ export class Mixer {
 
     setOutputs = () => {
         this.tracks.forEach(track => {
-            track.out.connect(this.out);
+            track.out.toDestination();
         })
     }
 

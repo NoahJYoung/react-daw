@@ -11,6 +11,7 @@ export class Track {
     player: Player
     volume: number
     pan: number
+    muted: boolean
     osc: Oscillator
 
     constructor(number: number) {
@@ -18,13 +19,13 @@ export class Track {
         this.number = number;
         this.active = false;
         this.volume = 0;
+        this.pan = 0;
+        this.muted = false
         this.in = new Channel();
-        this.out = new Channel(this.volume);
+        this.out = new Channel(this.volume, this.pan);
         this.audio = null;
         this.player = new Player();
         this.recorder = new Recorder();
-        this.player.connect(this.out);
-        this.pan = 0;
         this.osc = new Oscillator(1, 'sine').connect(this.recorder);
         this.init();
     }
@@ -36,7 +37,7 @@ export class Track {
 
     setRoutes = () => {
         this.in.connect(this.recorder);
-        this.in.connect(this.out);
+        this.player.connect(this.out);
     }
 
     record = async () => {
@@ -70,21 +71,26 @@ export class Track {
     }
 
     toggleActive = () => {
+        if (!this.active) {
+            this.in.connect(this.out);
+        } else {
+            this.in.disconnect(this.out);
+        }
         this.active = !this.active;
-    }
-
-    setInput = (channel: Channel) => {
-        channel.connect(this.in);
-        this.in.connect(this.recorder);
-        this.in.connect(this.player);
-    }
-
-    setOutput = (channel: Channel) => {
-        this.out.connect(channel);
     }
 
     setVolume = (value: number) => {
         this.volume = value
         this.out.set({ volume: this.volume })
+    }
+
+    setPan = (value: number) => {
+        this.pan = value / 100;
+        this.out.set({ pan: value / 100 })
+    }
+
+    toggleMuted = () => {
+        this.muted = !this.muted;
+        this.out.set({ mute: this.muted })
     }
 }

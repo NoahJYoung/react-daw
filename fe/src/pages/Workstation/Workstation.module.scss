@@ -22,7 +22,7 @@
     }
 
     .content {
-        min-height: 47vh;
+        min-height: 45vh;
         margin-top: 1rem;
     }
 
@@ -30,7 +30,8 @@
         min-height: 5vh;
         display: flex;
         justify-content: center;
-        color: #ddd;
+        align-items: center;
+        background: #333;
     }
 
     .footer {

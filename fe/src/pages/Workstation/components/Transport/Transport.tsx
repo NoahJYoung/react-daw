@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { Radio, RadioChangeEvent } from 'antd';
 import { AudioEngine } from '../../AudioEngine';
-import { ChromeFilled, PlayCircleFilled } from '@ant-design/icons';
-
+import { PlayIcon, RecordIcon, StopIcon } from '../../icons';
 const { Group, Button } = Radio
 
 interface TransportProps {
@@ -30,22 +29,26 @@ export const Transport: React.FC<TransportProps> = ({ audioEngine }) => {
     return (
         <div style={{
             display: 'flex',
+            alignItems: 'center',
         }}>
-            <Group value={transportState} onChange={handleTransportStateChange}>
+            <Group style={{height: '100%', display: 'flex', alignItems: 'center', textAlign: 'center'}} value={transportState} onChange={handleTransportStateChange}>
                 <Button
-                    style={ transportState === 'recording' ? { background: 'red' } : {} }
+                    style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', justifyContent: 'center' }}
                     value="recording"
                 >
-                    Record
+                    <RecordIcon />
                 </Button>
                 <Button
-                    style={ transportState === 'playing' ? { background: 'light-green' } : {} }
+                    style={{ display: 'flex', alignItems: 'center', height: '100%' }}
                     value="playing"
                 >
-                    Play
+                    <PlayIcon />
                 </Button>
-                <Button value="stopped">
-                    Stop
+                <Button
+                    style={{ display: 'flex', alignItems: 'center', height: '100%' }}
+                    value="stopped"
+                >
+                    <StopIcon />
                 </Button>
             </Group>
         </div>
